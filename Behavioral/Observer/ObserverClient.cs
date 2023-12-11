@@ -12,13 +12,22 @@ namespace DesignPatternsApp.Behavioral.Observer
         {
             Random random = new Random();
 
+            IInvestor goodInvestor = new GoodInvestor();
+            IInvestor badInvestor = new BadInvestor();
+
             IBMStock ibm = new IBMStock("IBM", 120.00);
-            ibm.Attach(new GoodInvestor());
-            ibm.Attach(new BadInvestor());
+            ibm.Attach(goodInvestor);
+            ibm.Attach(badInvestor);
 
             // Fluctuating prices will notify investors
-            ibm.Price = random.Next(10,200);
             ibm.Price = random.Next(10, 200);
+            ibm.Price = random.Next(10, 200);
+            ibm.Price = random.Next(10, 200);
+            ibm.Price = random.Next(10, 200);
+
+            ibm.Detach(badInvestor);
+
+            // Fluctuating prices will notify only good investors
             ibm.Price = random.Next(10, 200);
             ibm.Price = random.Next(10, 200);
         }
